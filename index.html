@@ -12,6 +12,7 @@
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
+                background-color: aqua;
             }
         </style>
        
@@ -19,12 +20,20 @@
     <body>
 
 	 <h1 id="headingTotal"></h1>
-        <input id="inputAmount" type="text"></input>
+        <input id="inputAmount" type="text">
+        <input id="inputDesc" type="text">
         <button id="btnAddExpense">+</button>
 
         <script>
                 // get the heading element
                 const headingEl = document.querySelector("#headingTotal");
+
+                // get the amount element 
+                const inputElement = document.querySelector("#inputAmount");
+
+                // get the description element
+                const inputDescEl = document.querySelector("#inputDesc")
+
                 // init value of expense to 0
                 let totalExpense = 0;
 
@@ -33,11 +42,14 @@
                 // on button Click add inputAount to totalExpense
                 function addExpenseToTotal(){
                     // read value from inputAmount
-                    const inputElement = document.querySelector("#inputAmount");
+                    
                     const textAmount = inputElement.value;
                     
                     // convert value to number
                     const expense = parseInt(textAmount, 10);
+
+                    // read the expense description
+                    const textDesc = inputDescEl.value;
                    
                     // onButtonClick add inputAmount to totalExpense
                     totalExpense = totalExpense + expense;
