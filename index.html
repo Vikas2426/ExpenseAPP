@@ -19,10 +19,23 @@
         
         <button id="btnCounter">+</button>
         <script>
+                // variable to count clicks
+                let counter = 0;
+
+                function counterIncrement(){
+                    // Increment counter on every click
+                    counter = counter + 1;
+                    // display number of clicks
+                    console.log(counter);
+                }
+                
                 //get button element
                 const element = document.querySelector("#btnCounter");
-                console.log(element);
+                // console.log(element);
+
                 //listen to click event
+                element.addEventListener("click", counterIncrement, false);
+                
                 
         </script>
     </body>
