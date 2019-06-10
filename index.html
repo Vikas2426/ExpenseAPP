@@ -8,6 +8,7 @@
         <style>
             body{
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
@@ -16,25 +17,39 @@
        
     </head>
     <body>
-        
-        <button id="btnCounter">+</button>
+        <h1 id="headingTotal"></h1>
+        <input id="inputAmount" type="text"></input>
+        <button id="btnAddExpense">+</button>
         <script>
-                // variable to count clicks
-                let counter = 0;
+                // get the heading element
+                const headingEl = document.querySelector("#headingTotal");
+                // init value of expense to 0
+                let totalExpense = 0;
 
-                function counterIncrement(){
-                    // Increment counter on every click
-                    counter = counter + 1;
-                    // display number of clicks
-                    console.log(counter);
+                // set the heading element
+                headingEl.textContent = totalExpense;
+                // on button Click add inputAount to totalExpense
+                function addExpenseToTotal(){
+                    // read value from inputAmount
+                    const inputElement = document.querySelector("#inputAmount");
+                    const textAmount = inputElement.value;
+                    
+                    // convert value to number
+                    const expense = parseInt(textAmount, 10);
+                   
+                    // onButtonClick add inputAmount to totalExpense
+                    totalExpense = totalExpense + expense;
+                    
+                    // set the heading element to totalExpense
+                    headingEl.textContent = totalExpense;
                 }
                 
                 //get button element
-                const element = document.querySelector("#btnCounter");
+                const element = document.querySelector("#btnAddExpense");
                 // console.log(element);
 
                 //listen to click event
-                element.addEventListener("click", counterIncrement, false);
+                element.addEventListener("click", addExpenseToTotal, false);
                 
                 
         </script>
