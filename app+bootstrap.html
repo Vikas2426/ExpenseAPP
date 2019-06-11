@@ -10,53 +10,67 @@
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous"
-		/>
+        />
+        <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+            crossorigin="anonymous">
+        </script>
 
     </head>
     <body>
             <nav class="navbar navbar-dark bg-dark">
                     <span class="navbar-brand mb-0 h1">Expenses</span>
                 </nav>
-                <div class="container-fluid bg-light" style="min-height: 100vh">
-                        <div class="container">
+                <div class="container-fluid bg-light" style="min-height: 100vh; box-shadow: 5px 5px 10px #888888">
+                    <div class="container">
                                 <div class="jumbotron mt-4">
-                                        <h1 id="headingTotal"></h1>
-                <div class="input-group mb-3">
+                                        <h3 id="headingTotal" ></h3>
+                                    <div class="input-group mb-3">
                                   
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="spent in rupee">₹</span>
-                </div>
-                <input
-                    id="inputAmount"
-                    type="text"
-                    class="form-control"
-                    placeholder="Amount spent"
-                    aria-label="Amount spent"
-                    aria-describedby="spent in rupee"
-                    autocomplete="off"
-                />
-                </div>
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text" id="spent in rupee" style="box-shadow: 5px 5px 10px #888888">₹</span>
+                                         </div>
+                                         <input
+                                            id="inputAmount"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Amount spent"
+                                            aria-label="Amount spent"
+                                            aria-describedby="spent in rupee"
+                                            autocomplete="off"
+                                            style="box-shadow: 5px 5px 10px #888888"
+                                         />
+                                    </div>
 
- <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="spent at">@</span>
-        </div>
-        <input
-            id="inputDesc"
-            type="text"
-            class="form-control"
-            placeholder="Spent On"
-            aria-label="spent On"
-            aria-describedby="spent at"
-            autocomplete="off"
-        />
-            <div class="input-group-append">
-                 <button class="btn btn-outline-primary" type="button" id="btnAddExpense">Add</button>
-            </div>        
-        </div>
-        </div>
+                                <div class="input-group mb-3" >
+                                        <div class="input-group-prepend">
+                                         <span class="input-group-text" id="spent at" style="box-shadow: 5px 5px 10px #888888">@</span>
+                                         </div>
+                                        <input
+                                            id="inputDesc"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Spent On"
+                                            aria-label="spent On"
+                                            aria-describedby="spent at"
+                                            autocomplete="off"
+                                            style="box-shadow: 5px 5px 10px #888888"
+                                        />
+                                    
+                                </div>
+                                            <div class="input-group-append" style="align-items: center; justify-content: center">
+                                             <button class="btn btn-outline-secondary btn-sm btn-block" type="button" id="btnAddExpense" style="box-shadow: 5px 5px 10px #888888 " >ADD</button>
+                                        </div> 
+                            </div>
+        <div>
+                <ul class="list-group" id="expenseTable">
+                   
+                </ul>
+            </div>
         <div id="expenseTable"></div>
-        </div>
+                    </div>
         <script>
                 // get the heading element
                 const headingEl = document.querySelector("#headingTotal");
@@ -81,6 +95,7 @@
 
                 // on button Click add inputAount to totalExpense
                 function addExpenseToTotal(){
+                    const now = new Date();
 
                     // create an empty expense object
                     const expenseItem = {}
@@ -97,7 +112,9 @@
                     //add the expenses to the object
                     expenseItem.desc = textDesc;
                     expenseItem.amount = expense;
+                    expenseItem.moment = new Date();
                     allExpenses.push(expenseItem);  
+                    
                     console.table(allExpenses)  
 
                     // onButtonClick add inputAmount to totalExpense
@@ -117,7 +134,9 @@
                     //     <div>${data1Text}</div>
                     //     <div>${data2Text} </div>
                     // `
-                    const allExpenseHTML = allExpenses.map(expense => {return `<div> ${expense.amount} :: ${expense.desc}</div>`});
+                    const allExpenseHTML = allExpenses.map(expense =>
+                        createListItem(expense));  //expense object has both desc and amount therefore just pass expense
+                        
 
                     const joinedAllExpenseHTML = allExpenseHTML.join("");
                     // textContent does not regard the html tags but takes them as string 
@@ -133,7 +152,23 @@
                 //listen to click event
                 element.addEventListener("click", addExpenseToTotal, false);
                 
-               
+                // View Layer
+                function createListItem({desc, amount, moment}){
+                     return `<li class="list-group-item d-flex justify-content-between">
+							<div class="d-flex flex-column">
+                                    ${desc}
+                                <small class="text-muted">${moment.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})}</small>
+							</div>
+							<div>
+								<span class="px-5">
+                                        ${amount}
+								</span>
+								<button type="button" class="btn btn-outline-danger btn-sm">
+									<i class="fa fa-times-circle" aria-hidden="true"></i>
+								</button>
+							</div>
+						</li>`
+                }
 
                 
         </script>
