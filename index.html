@@ -19,59 +19,56 @@
         </script>
 
     </head>
-    <body>
+    <body style="background-color: rgba(7, 7, 245, 0.6)">
             <nav class="navbar navbar-dark bg-dark" >
                     <span class="navbar-brand mb-0 h1">Expenses</span>
                     <span class="navbar-brand mb-0 h1" id="headingTotal"></span>
-                </nav>
-                <div class="container-fluid bg-light" style="min-height: 100vh; box-shadow: 5px 5px 10px #888888">
-                    <div class="container">
-                                <div class="jumbotron mt-4">
-                                        
-                                    <div class="input-group mb-3">
-                                  
-                                         <div class="input-group-prepend">
-                                             <span class="input-group-text" id="spent in rupee" >₹</span>
-                                         </div>
-                                         <input
-                                            id="inputAmount"
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Amount spent"
-                                            aria-label="Amount spent"
-                                            aria-describedby="spent in rupee"
-                                            autocomplete="off"
-                                           
-                                         />
-                                    </div>
-
-                                <div class="input-group mb-3" >
-                                        <div class="input-group-prepend">
-                                         <span class="input-group-text" id="spent at" >@</span>
-                                         </div>
-                                        <input
-                                            id="inputDesc"
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Spent On"
-                                            aria-label="spent On"
-                                            aria-describedby="spent at"
-                                            autocomplete="off"
-                                            
-                                        />
-                                    
-                                </div>
-                                            <div class="input-group-append" style="align-items: center; justify-content: center">
-                                             <button class="btn btn-outline-secondary btn-lg" type="button" id="btnAddExpense" style="box-shadow: 5px 5px 10px #888888 " >ADD</button>
-                                        </div> 
+            </nav>
+            <div class="container-fluid bg-light" style="min-height: 100vh; min-width: 90vw;">
+                <div class="container">
+                    <div class="jumbotron mt-4">             
+                        <div class="input-group mb-3">      
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="spent in rupee" >₹</span>
                             </div>
-        <div>
+                            <input
+                                id="inputAmount"
+                                type="text"
+                                class="form-control"
+                                placeholder="Amount spent"
+                                aria-label="Amount spent"
+                                aria-describedby="spent in rupee"
+                                autocomplete="off"
+                            
+                            />            
+                        </div>
+
+                        <div class="input-group mb-3" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="spent at" >@</span>
+                            </div>
+                            <input
+                                id="inputDesc"
+                                type="text"
+                                class="form-control"
+                                placeholder="Spent On"
+                                aria-label="spent On"
+                                aria-describedby="spent at"
+                                autocomplete="off"
+                                
+                            />         
+                                    
+                        </div>
+                        <div class="input-group-append" style="align-items: center; justify-content: center">
+                            <button class="btn btn-outline-secondary btn-lg" type="button" id="btnAddExpense" style="box-shadow: 5px 5px 10px #888888 " >ADD</button>
+                        </div> 
+                    </div>
+                <div>
                 <ul class="list-group" id="expenseTable">
-                   
                 </ul>
             </div>
-        <div id="expenseTable"></div>
-                    </div>
+            <div id="expenseTable"></div>
+        </div>
         <script>
                 // get the heading element
                 const headingEl = document.querySelector("#headingTotal");
@@ -114,7 +111,11 @@
                     expenseItem.desc = textDesc;
                     expenseItem.amount = expense;
                     expenseItem.moment = new Date();
-                    allExpenses.push(expenseItem);    
+                    allExpenses.push(expenseItem); 
+
+                    // clear input fields
+                    document.getElementById("inputAmount").value = "";
+                    document.getElementById("inputDesc").value = "";  
 
                     // onButtonClick add inputAmount to totalExpense
                     totalExpense = totalExpense + expense;
