@@ -20,17 +20,18 @@
 
     </head>
     <body>
-            <nav class="navbar navbar-dark bg-dark">
+            <nav class="navbar navbar-dark bg-dark" >
                     <span class="navbar-brand mb-0 h1">Expenses</span>
+                    <span class="navbar-brand mb-0 h1" id="headingTotal"></span>
                 </nav>
                 <div class="container-fluid bg-light" style="min-height: 100vh; box-shadow: 5px 5px 10px #888888">
                     <div class="container">
                                 <div class="jumbotron mt-4">
-                                        <h3 id="headingTotal" ></h3>
+                                        
                                     <div class="input-group mb-3">
                                   
                                          <div class="input-group-prepend">
-                                             <span class="input-group-text" id="spent in rupee" style="box-shadow: 5px 5px 10px #888888">₹</span>
+                                             <span class="input-group-text" id="spent in rupee" >₹</span>
                                          </div>
                                          <input
                                             id="inputAmount"
@@ -40,13 +41,13 @@
                                             aria-label="Amount spent"
                                             aria-describedby="spent in rupee"
                                             autocomplete="off"
-                                            style="box-shadow: 5px 5px 10px #888888"
+                                           
                                          />
                                     </div>
 
                                 <div class="input-group mb-3" >
                                         <div class="input-group-prepend">
-                                         <span class="input-group-text" id="spent at" style="box-shadow: 5px 5px 10px #888888">@</span>
+                                         <span class="input-group-text" id="spent at" >@</span>
                                          </div>
                                         <input
                                             id="inputDesc"
@@ -56,12 +57,12 @@
                                             aria-label="spent On"
                                             aria-describedby="spent at"
                                             autocomplete="off"
-                                            style="box-shadow: 5px 5px 10px #888888"
+                                            
                                         />
                                     
                                 </div>
                                             <div class="input-group-append" style="align-items: center; justify-content: center">
-                                             <button class="btn btn-outline-secondary btn-sm btn-block" type="button" id="btnAddExpense" style="box-shadow: 5px 5px 10px #888888 " >ADD</button>
+                                             <button class="btn btn-outline-secondary btn-lg" type="button" id="btnAddExpense" style="box-shadow: 5px 5px 10px #888888 " >ADD</button>
                                         </div> 
                             </div>
         <div>
@@ -91,7 +92,7 @@
                 headingEl.textContent = totalExpense;
 
                 // create an array to hold all expenses
-                const allExpenses = []
+                var allExpenses = []
 
                 // on button Click add inputAount to totalExpense
                 function addExpenseToTotal(){
@@ -113,15 +114,14 @@
                     expenseItem.desc = textDesc;
                     expenseItem.amount = expense;
                     expenseItem.moment = new Date();
-                    allExpenses.push(expenseItem);  
-                    
-                    console.table(allExpenses)  
+                    allExpenses.push(expenseItem);    
 
                     // onButtonClick add inputAmount to totalExpense
                     totalExpense = totalExpense + expense;
                     
                     // set the heading element to totalExpense
-                    headingEl.textContent = `Total Expenditure = ${totalExpense}`;
+                    headingEl.textContent = `Total: ${totalExpense}`;
+                
                     
                     // // Show the table here
                     // const data1 = allExpenses[0];
@@ -134,16 +134,10 @@
                     //     <div>${data1Text}</div>
                     //     <div>${data2Text} </div>
                     // `
-                    const allExpenseHTML = allExpenses.map(expense =>
-                        createListItem(expense));  //expense object has both desc and amount therefore just pass expense
-                        
 
-                    const joinedAllExpenseHTML = allExpenseHTML.join("");
-                    // textContent does not regard the html tags but takes them as string 
-                    // expensetable.textContent = tableText;
-                    // to make the html tags effective we use innerHTML
-                    expenseTableEl.innerHTML = joinedAllExpenseHTML;
-                }
+                    renderList(allExpenses);
+                    }
+                  
 
                 //get button element
                 const element = document.querySelector("#btnAddExpense");
@@ -152,18 +146,49 @@
                 //listen to click event
                 element.addEventListener("click", addExpenseToTotal, false);
                 
+                // Delete Items
+                function deleteItem(dateValue){
+                    var newArr =[];
+                    totalExpense = 0;
+                    // we differentiate ebetween object using moment object
+                    for (let i=0; i<allExpenses.length; i++){
+                        if(allExpenses[i].moment.valueOf() !== dateValue)
+                        {newArr.push(allExpenses[i]);
+                        totalExpense = allExpenses[i].amount + totalExpense}
+                    }
+                    allExpenses = newArr;
+                    renderList(allExpenses);
+                    headingEl.textContent = `Total: ${totalExpense}`
+                    
+                }
+
                 // View Layer
+                function renderList(allExpenses){
+                    const allExpenseHTML = allExpenses.map(expense => createListItem(expense));  
+                    //expense object has both desc and amount therefore just pass expense
+                        
+                    const joinedAllExpenseHTML = allExpenseHTML.join("");
+                    // textContent does not regard the html tags but takes them as string 
+                    // expensetable.textContent = tableText;
+                    // to make the html tags effective we use innerHTML
+                    expenseTableEl.innerHTML = joinedAllExpenseHTML;
+                }
+    
                 function createListItem({desc, amount, moment}){
-                     return `<li class="list-group-item d-flex justify-content-between">
-							<div class="d-flex flex-column">
+                     return `<li class="list-group-item d-flex justify-content-between"  style='box-shadow: 5px 5px 7px #888888'>
+							<div class="d-flex flex-column" >
                                     ${desc}
                                 <small class="text-muted">${moment.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})}</small>
 							</div>
 							<div>
-								<span class="px-5">
+								<span class="px-5" >
                                         ${amount}
 								</span>
-								<button type="button" class="btn btn-outline-danger btn-sm">
+								<button 
+                                type="button" 
+                                class="btn btn-outline-danger btn-sm"
+                                onclick="deleteItem(${moment.valueOf()})"
+                                style='box-shadow: 5px 5px 7px #888888'>
 									<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</button>
 							</div>
