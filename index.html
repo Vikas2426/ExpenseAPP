@@ -11,6 +11,11 @@
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous"
         />
+        <style>
+            .bg-light{
+                background-color: None;
+            }
+            </style>
         <script
 			defer
 			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
@@ -24,9 +29,9 @@
                     <span class="navbar-brand mb-0 h1">Expenses</span>
                     <span class="navbar-brand mb-0 h1" id="headingTotal"></span>
             </nav>
-            <div class="container-fluid bg-light" style="min-height: 100vh; min-width: 90vw;">
+            <div class="container-fluid bg-light" style="min-height: 100vh">
                 <div class="container">
-                    <div class="jumbotron mt-4">             
+                    <div class="jumbotron mt-4" style="background-color: #f6f6f6; box-shadow: 7px 10px 10px #888888">             
                         <div class="input-group mb-3">      
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="spent in rupee" >₹</span>
@@ -38,8 +43,7 @@
                                 placeholder="Amount spent"
                                 aria-label="Amount spent"
                                 aria-describedby="spent in rupee"
-                                autocomplete="off"
-                            
+                                autocomplete="off"                            
                             />            
                         </div>
 
