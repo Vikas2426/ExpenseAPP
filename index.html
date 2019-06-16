@@ -178,16 +178,16 @@
 
                 function createListItem({desc, amount, moment}){
                      return `<li class="list-group-item d-flex justify-content-between"  style='box-shadow: 5px 5px 7px #888888'>
-							<div class="d-flex flex-column" >
+							<span class="d-flex flex-column" style="overflow-wrap: break-word; width: 30%">
                                     ${desc}
                                 <small class="text-muted">${moment.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'})}</small>
-							</div>
-							<div>
+							</span>
+							<span style="overflow-wrap: break-word; width: 60%" >
 								<span class="px-5" >
                                         ${amount}
 								</span>
-                            </div>
-                            <div>
+                            </span>
+                            <span style="overflow-wrap: break-word; width: 10%">
 
 								<button 
                                 type="button" 
@@ -197,7 +197,7 @@
       
 							<i class="fa fa-times-circle" aria-hidden="true"></i>
 								</button>
-							</div>
+							</span>
 						</li>`
                 }
 
